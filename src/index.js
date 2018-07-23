@@ -1,3 +1,4 @@
+import { put } from "redux-saga/effects";
 const NAMESPACE = 'loading';
 const ISLOADING = 'REDUX_SAGA_IS_LOADING'
 const NOTLOADING = 'REDUX_SAGA_NOT_LOADING'
