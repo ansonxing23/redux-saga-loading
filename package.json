@@ -16,5 +16,8 @@
     "loading"
   ],
   "author": "Anson",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "redux-saga": "^0.16.0"
+  }
 }
