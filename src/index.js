@@ -1,7 +1,9 @@
-import { put } from "redux-saga/effects";
+import {
+    put
+} from "redux-saga/effects";
 const NAMESPACE = 'loading';
-const ISLOADING = 'REDUX_SAGA_IS_LOADING'
-const NOTLOADING = 'REDUX_SAGA_NOT_LOADING'
+const START = '@@REDUX_SAGA_LOADING/START'
+const STOP = '@@REDUX_SAGA_LOADING/STOP'
 
 function createReduxSagaLoading(opts = {}) {
     const namespace = opts.namespace || NAMESPACE;
@@ -9,25 +11,43 @@ function createReduxSagaLoading(opts = {}) {
         models: {}
     };
     const reduxReducers = {
-        [namespace](state = false, action) {
+        [namespace](state = initialState, action) {
+            const {
+                model
+            } = action
             switch (action.type) {
-                case ISLOADING:
-                    return true;
-                case NOTLOADING:
-                    return false;
+                case START:
+                    return {
+                        models: {
+                            ...state.models,
+                            [model]: true
+                        }
+                    };
+                case STOP:
+                    return {
+                        models: {
+                            ...state.models,
+                            [model]: false
+                        }
+                    };
                 default:
                     return state;
             }
         }
     }
-    
     return {
         reduxReducers
     };
 }
 
-const startLoading = () => yield put({ type: ISLOADING })
-const stopLoading = () => yield put({ type: NOTLOADING })
+const startLoading = (model) => put({
+    type: START,
+    model
+})
+const stopLoading = (model) => put({
+    type: STOP,
+    model
+})
 
 export {
     createReduxSagaLoading,

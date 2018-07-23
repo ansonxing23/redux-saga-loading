@@ -4,6 +4,6 @@ interface Opts {
 interface CreateFactory {
     reduxReducers: any;
 }
-export function createReduxSagaLoading(opts: Opts): CreateFactory;
-export function startLoading(): void;
-export function stopLoading(): void;
+export function createReduxSagaLoading(opts?: Opts): CreateFactory;
+export function startLoading(model: string): void;
+export function stopLoading(model: string): void;
