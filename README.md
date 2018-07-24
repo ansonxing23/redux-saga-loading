@@ -1,6 +1,6 @@
 redux-saga-loading
 ===============
-store loading state with redux. This program is writed in Typescript.
+store loading state with redux.
 
 ---
 

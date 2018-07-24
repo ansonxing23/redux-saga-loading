@@ -3,13 +3,13 @@ const NAMESPACE = 'loading';
 const START = '@@REDUX_SAGA_LOADING/START'
 const STOP = '@@REDUX_SAGA_LOADING/STOP'
 
-function createReduxSagaLoading(opts: any = {}) {
+function createReduxSagaLoading(opts = {}) {
     const namespace = opts.namespace || NAMESPACE;
     const initialState = {
         models: {}
     };
     const reduxReducers = {
-        [namespace](state: any = initialState, action: any) {
+        [namespace](state = initialState, action) {
             const {
                 model
             } = action
@@ -38,11 +38,11 @@ function createReduxSagaLoading(opts: any = {}) {
     };
 }
 
-const startLoading = (model: string) => put({
+const startLoading = (model) => put({
     type: START,
     model
 })
-const stopLoading = (model: string) => put({
+const stopLoading = (model) => put({
     type: STOP,
     model
 })
@@ -52,3 +52,6 @@ export {
     startLoading,
     stopLoading
 }
+
+const data = { models: { users: true }}
+console.log(...data.models)
