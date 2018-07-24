@@ -1,5 +1,5 @@
 {
-  "name": "redux-loading-utils",
+  "name": "redux-saga-loading",
   "version": "1.0.0",
   "description": "store loading state with redux",
   "main": "src/index.ts",
@@ -8,14 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ansonxing168/redux-loading-utils.git"
+    "url": "https://github.com/ansonxing168/redux-saga-loading.git"
   },
   "keywords": [
     "reudx",
+    "saga",
     "loading"
   ],
   "author": "Anson",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "redux-saga": "^0.16.0"
   }
