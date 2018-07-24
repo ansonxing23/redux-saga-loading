@@ -52,6 +52,3 @@ export {
     startLoading,
     stopLoading
 }
-
-const data = { models: { users: true }}
-console.log(...data.models)
