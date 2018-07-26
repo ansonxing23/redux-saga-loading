@@ -16,7 +16,7 @@ $ npm install redux-saga-loading --save
 
 ```javascript
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { createReduxSagaLoading } from 'redux-loading-utils'
+import { createReduxSagaLoading } from 'redux-saga-loading'
 
 const loading = createReduxSagaLoading()
 const rootReducer = combineReducers({
@@ -34,7 +34,7 @@ export const store = createStore(
 ```javascript
 import { call, put } from "redux-saga/effects";
 import { api } from 'apis'
-import { startLoading, stopLoading } from 'redux-loading-utils'
+import { startLoading, stopLoading } from 'redux-saga-loading'
 
 function* list(action: any) {
   try {
