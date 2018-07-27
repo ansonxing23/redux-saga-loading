@@ -38,11 +38,14 @@ import { startLoading, stopLoading } from 'redux-saga-loading'
 
 function* list(action: any) {
   try {
-    yield startLoading('users')
-    const data = yield call(api.getUsers);
-    yield put({ type: "SET_USERS", data });
+    yield startLoading('users', 'rooms')
+    const users = yield call(api.getUsers);
+    const rooms = yield call(api.getRooms);
+    yield put({ type: "SET_USERS", users });
+    yield put({ type: "SET_ROOMS", rooms });
   } catch (error) { } finally {
-    yield stopLoading('users')
+    yield stopLoading('users', 'rooms')
+    // or yield stopAllLoading()
   }
 }
 ```
@@ -64,6 +67,48 @@ loading: {
   },
 }
 ```
+
+## API
+
+### createReduxSagaLoading([opts])
+
+Create reducers for loading.
+
+#### opts
+
+Type: `Object`
+
+`opts.namespace`: property key on global state, type String, Default `loading`
+
+ex. { namespace: 'myLoading' }
+
+### startLoading(modelNames)
+
+Set start state of models.
+
+#### modelNames
+
+Type: `string` `Array`
+
+List of name for models.
+
+### stopLoading(modelNames)
+
+Set start state of models.
+
+#### modelNames
+
+Type: `string` `Array`
+
+List of name for models.
+
+### startAllLoading()
+
+Start all loading state. Should make sure that the models are existing in reducer.
+
+### stopAllLoading()
+
+Stop all loading state.
 
 ## License
 

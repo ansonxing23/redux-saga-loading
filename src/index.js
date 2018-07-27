@@ -1,7 +1,11 @@
-import { put } from "redux-saga/effects"
+import {
+    put
+} from "redux-saga/effects"
 const NAMESPACE = 'loading';
 const START = '@@REDUX_SAGA_LOADING/START'
 const STOP = '@@REDUX_SAGA_LOADING/STOP'
+const START_ALL = '@@REDUX_SAGA_LOADING/START_ALL'
+const STOP_ALL = '@@REDUX_SAGA_LOADING/STOP_ALL'
 
 function createReduxSagaLoading(opts = {}) {
     const namespace = opts.namespace || NAMESPACE;
@@ -11,22 +15,44 @@ function createReduxSagaLoading(opts = {}) {
     const reduxReducers = {
         [namespace](state = initialState, action) {
             const {
-                model
+                modelNames
             } = action
             switch (action.type) {
                 case START:
+                    let startModels = {}
+                    for (const name of modelNames) {
+                        startModels[name] = true
+                    }
                     return {
-                        models: {
-                            ...state.models,
-                            [model]: true
-                        }
+                        models: Object.assign({}, {
+                            ...state.models
+                        }, startModels)
                     };
                 case STOP:
+                    let stopModels = {}
+                    for (const name of modelNames) {
+                        stopModels[name] = false
+                    }
                     return {
-                        models: {
-                            ...state.models,
-                            [model]: false
-                        }
+                        models: Object.assign({}, {
+                            ...state.models
+                        }, stopModels)
+                    };
+                case START_ALL:
+                    const starts = Object.keys(state.models).reduce((obj, key) => {
+                        obj[key] = true;
+                        return obj
+                    }, {})
+                    return {
+                        models: starts
+                    };
+                case STOP_ALL:
+                    const stops = Object.keys(state.models).reduce((obj, key) => {
+                        obj[key] = false;
+                        return obj
+                    }, {})
+                    return {
+                        models: stops
                     };
                 default:
                     return state;
@@ -38,17 +64,25 @@ function createReduxSagaLoading(opts = {}) {
     };
 }
 
-const startLoading = (model) => put({
+const startLoading = (...modelNames) => put({
     type: START,
-    model
+    modelNames
 })
-const stopLoading = (model) => put({
+const stopLoading = (...modelNames) => put({
     type: STOP,
-    model
+    modelNames
+})
+const startAllLoading = () => put({
+    type: START_ALL
+})
+const stopAllLoading = () => put({
+    type: STOP_ALL
 })
 
 export {
     createReduxSagaLoading,
     startLoading,
-    stopLoading
+    stopLoading,
+    startAllLoading,
+    stopAllLoading
 }
